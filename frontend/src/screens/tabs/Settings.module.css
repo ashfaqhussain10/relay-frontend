@@ -1,0 +1,248 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 720px;
+}
+
+.sectionTitle {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.sectionSub {
+  font-size: 12.5px;
+  color: var(--ink3);
+  margin-bottom: 16px;
+  margin-top: -8px;
+}
+
+/* Fields */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 16px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink2);
+}
+
+.input {
+  height: 38px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 0 11px;
+  font-size: 13.5px;
+  color: var(--ink);
+  background: var(--surface);
+  outline: none;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+  width: 100%;
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-weak);
+}
+
+.input[aria-invalid='true'] { border-color: var(--danger); }
+
+.textarea {
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 9px 11px;
+  font-size: 13.5px;
+  font-family: var(--font-ui);
+  color: var(--ink);
+  background: var(--surface);
+  outline: none;
+  resize: vertical;
+  width: 100%;
+  line-height: 1.5;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+
+.textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-weak);
+}
+
+.textarea[aria-invalid='true'] { border-color: var(--danger); }
+
+.hint { font-size: 12px; color: var(--ink3); }
+.fieldErr { font-size: 12px; color: var(--danger); }
+
+.infoNote {
+  font-size: 12px;
+  color: var(--ink3);
+  background: var(--bg);
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+}
+
+.warnNote {
+  font-size: 12px;
+  color: var(--warn);
+  background: var(--warn-bg);
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+}
+
+.mono { font-family: var(--font-mono); }
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 520px) {
+  .row2 { grid-template-columns: 1fr; }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 4px;
+}
+
+/* Toggle */
+.toggleRow { margin-bottom: 16px; }
+
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.toggleText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.toggleText span:first-child {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.toggleSub {
+  font-size: 12px;
+  color: var(--ink3);
+}
+
+.toggle { position: relative; flex-shrink: 0; }
+
+.toggleInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleTrack {
+  width: 40px;
+  height: 22px;
+  background: var(--border);
+  border-radius: 100px;
+  transition: background var(--t-fast);
+  position: relative;
+}
+
+.toggleTrack::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform var(--t-fast);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.toggleInput:checked + .toggleTrack { background: var(--accent); }
+.toggleInput:checked + .toggleTrack::after { transform: translateX(18px); }
+
+.toggleInput:focus-visible + .toggleTrack {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Bot controls */
+.botControls { display: flex; flex-direction: column; gap: 14px; }
+
+.botStatus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.botActions { display: flex; gap: 10px; }
+
+.activateErrors {
+  background: var(--danger-bg);
+  border: 1px solid var(--danger);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--danger);
+}
+
+.activateErrors strong { display: block; margin-bottom: 6px; }
+
+.activateErrors ul {
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.btnRoleLocked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.roleNote {
+  font-size: 12px;
+  color: var(--ink3);
+  margin-top: 6px;
+}
+
+.dangerZone {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.deleteConfirm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.deleteWarn {
+  font-size: 13px;
+  color: var(--ink2);
+  text-align: right;
+}
+
+.deleteActions {
+  display: flex;
+  gap: 8px;
+}

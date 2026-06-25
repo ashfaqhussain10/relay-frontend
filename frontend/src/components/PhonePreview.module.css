@@ -1,0 +1,233 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+}
+
+.label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  align-self: flex-start;
+}
+
+/* Channel toggle */
+.channelToggle {
+  display: flex;
+  gap: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 3px;
+  width: 100%;
+}
+
+.chanBtn {
+  flex: 1;
+  padding: 6px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink3);
+  cursor: pointer;
+  transition: background var(--t-fast), color var(--t-fast);
+  font-family: var(--font-ui);
+}
+
+.chanWa {
+  background: #128c7e;
+  color: #fff;
+}
+
+.chanIg {
+  background: #833ab4;
+  color: #fff;
+}
+
+/* Phone */
+.phone {
+  width: 240px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 0 0 6px #1a1a2e, 0 0 0 8px #000;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+}
+
+.statusBar {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 14px 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #fff;
+  background: #128c7e;
+}
+
+.whatsapp .statusBar { background: #128c7e; }
+.instagram .statusBar { background: #833ab4; }
+
+/* App header */
+.appHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  color: #fff;
+}
+
+.whatsappHeader { background: #128c7e; }
+.instagramHeader { background: #833ab4; }
+
+.headerAvatar {
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.headerName {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.headerSub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.75);
+}
+
+/* Chat body */
+.chatBody {
+  flex: 1;
+  background: #e5ddd5;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.instagram .chatBody {
+  background: #f9f9f9;
+}
+
+.emptyPreview {
+  font-size: 11.5px;
+  color: #888;
+  text-align: center;
+  margin: auto;
+  padding: 12px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* Bot bubble */
+.botRow {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.bubble {
+  max-width: 80%;
+  padding: 8px 10px;
+  border-radius: 0 10px 10px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.whatsappBubble {
+  background: #fff;
+  color: #111;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+.instagramBubble {
+  background: #fff;
+  color: #111;
+  border-radius: 18px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Options */
+.optionsArea {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: stretch;
+}
+
+.optBtn {
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  transition: filter var(--t-fast);
+  font-family: var(--font-ui);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.optBtn:hover:not(:disabled) { filter: brightness(0.92); }
+.optBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.whatsappOpt {
+  background: #128c7e;
+  color: #fff;
+}
+
+.instagramOpt {
+  background: #833ab4;
+  color: #fff;
+}
+
+.optBroken {
+  background: var(--danger-bg) !important;
+  color: var(--danger) !important;
+  border: 1px solid var(--danger);
+}
+
+/* End pill */
+.endPill {
+  background: rgba(0,0,0,0.07);
+  color: #555;
+  font-size: 11px;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 100px;
+  align-self: center;
+}
+
+/* Reset */
+.resetBtn {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--ink3);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  transition: color var(--t-fast), border-color var(--t-fast);
+}
+
+.resetBtn:hover { color: var(--ink); border-color: var(--ink3); }

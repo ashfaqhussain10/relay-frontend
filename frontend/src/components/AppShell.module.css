@@ -1,0 +1,58 @@
+.skipLink {
+  position: absolute;
+  top: -48px;
+  left: 8px;
+  background: var(--accent);
+  color: #fff;
+  padding: 9px 18px;
+  border-radius: var(--r-sm);
+  font-size: 13.5px;
+  font-weight: 600;
+  z-index: 9999;
+  transition: top var(--t-fast);
+  text-decoration: none;
+}
+
+.skipLink:focus {
+  top: 8px;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.backdrop {
+  display: none;
+}
+
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--bg);
+}
+
+.content {
+  flex: 1;
+  padding: 32px 28px;
+  overflow-y: auto;
+}
+
+@media (max-width: 767px) {
+  .backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 199;
+    cursor: pointer;
+  }
+
+  .content {
+    padding: 20px 16px;
+  }
+}

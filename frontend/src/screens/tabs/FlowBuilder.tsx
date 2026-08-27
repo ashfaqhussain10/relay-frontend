@@ -120,7 +120,10 @@ export default function FlowBuilder() {
       const step = await createStep.mutateAsync({
         tenant: tenantId,
         label: 'New step',
-        message_text: '',
+        // The API requires a non-blank message (a step where the bot says nothing
+        // is meaningless), so seed a placeholder for the user to edit — same as
+        // the 'New step' label above.
+        message_text: 'Edit this message…',
         is_start: isFirst,
         is_terminal: false,
       });

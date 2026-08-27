@@ -19,7 +19,9 @@ function ClientCard({ tenant, onClick }: { tenant: import('../types').Tenant; on
         <div className={styles.cardMeta}>
           {tenant.wa_phone_number
             ? <span className={styles.mono}>{tenant.wa_phone_number}</span>
-            : <span className={styles.muted}>No WhatsApp</span>}
+            : tenant.wa_phone_number_id
+              ? <span className={styles.muted}>WhatsApp connected</span>
+              : <span className={styles.muted}>No WhatsApp</span>}
           {tenant.ig_account_id && <span className={styles.muted}> · {tenant.ig_account_id}</span>}
         </div>
       </div>
@@ -40,7 +42,10 @@ export default function Dashboard() {
 
   const total = tenants?.length ?? 0;
   const active = tenants?.filter(t => t.is_active).length ?? 0;
-  const waCount = tenants?.filter(t => t.wa_phone_number).length ?? 0;
+  // A tenant is connected to WhatsApp when it has a phone_number_id (that's what
+  // routes inbound messages). wa_phone_number is only the human-readable number
+  // and is often blank, so counting it under-reports live channels.
+  const waCount = tenants?.filter(t => t.wa_phone_number_id || t.wa_phone_number).length ?? 0;
   const igCount = tenants?.filter(t => t.ig_account_id).length ?? 0;
   const handoffCount = tenants?.filter(t => t.handoff_enabled).length ?? 0;
 

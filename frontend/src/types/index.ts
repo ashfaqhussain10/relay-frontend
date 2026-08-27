@@ -51,19 +51,22 @@ export interface Message {
   content: string;
   channel: 'whatsapp' | 'instagram';
   provider_message_id: string;
+  // Outbound only: did the provider actually accept it? Blank for inbound.
+  delivery_status?: 'pending' | 'sent' | 'failed' | '';
   sent_at: string;
 }
 
+// Matches apps/audit/models.py. This was previously typed for django-auditlog
+// (timestamp/actor/content_type/object_repr/changes, numeric action) — none of
+// those field names exist on this API, so every cell rendered blank.
 export interface AuditLog {
   id: number;
-  timestamp: string;
-  actor: string | null;
-  verb?: string;
-  action?: number;          // 0=create 1=update 2=delete (django-auditlog)
-  content_type?: string;
-  object_repr?: string;
-  changes?: Record<string, [unknown, unknown]> | string | null;
-  remote_addr?: string;
+  created_at: string;
+  admin_user: string | null;      // username, null for system actions
+  action: string;                 // e.g. "created", "updated", "activated"
+  entity_type: string;            // e.g. "Tenant", "FlowStep"
+  entity_id: string;
+  diff?: Record<string, unknown> | null;
 }
 
 export interface PaginatedResponse<T> {

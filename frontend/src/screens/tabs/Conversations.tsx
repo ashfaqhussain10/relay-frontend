@@ -31,9 +31,12 @@ function sessionStatusLabel(status: Session['status']) {
 
 /* ── Message thread (rendered when a session row is expanded) ── */
 
-function isSystemEvent(msg: Message) {
-  // Heuristic: outbound with no provider_message_id is a system note
-  return msg.direction === 'outbound' && !msg.provider_message_id;
+function isSystemEvent(_msg: Message) {
+  // The API models messages as inbound (customer) or outbound (bot) only — there
+  // is no system-event type. The previous heuristic treated "outbound with no
+  // provider_message_id" as a system note, but the API records that id for
+  // INBOUND messages only, so it matched every bot reply and centred them all.
+  return false;
 }
 
 function MessageThread({ sessionId }: { sessionId: number }) {
@@ -67,10 +70,16 @@ function MessageThread({ sessionId }: { sessionId: number }) {
             );
           }
           if (msg.direction === 'outbound') {
+            // A rejected send is still logged, so say so plainly — otherwise the
+            // transcript implies the customer received a reply they never got.
+            const failed = msg.delivery_status === 'failed';
             return (
               <div key={msg.id} className={styles.botRow}>
                 <div className={styles.botBubble}>{msg.content}</div>
-                <span className={styles.msgTime}>{fmtTime(msg.sent_at)}</span>
+                <span className={styles.msgTime}>
+                  {fmtTime(msg.sent_at)}
+                  {failed && <span className={styles.notDelivered}> · not delivered</span>}
+                </span>
               </div>
             );
           }

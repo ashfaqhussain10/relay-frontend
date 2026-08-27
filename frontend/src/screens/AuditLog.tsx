@@ -13,20 +13,25 @@ function fmtTime(iso: string) {
   });
 }
 
-const ACTION_LABELS: Record<number, { label: string; cls: string }> = {
-  0: { label: 'Create', cls: 'create' },
-  1: { label: 'Update', cls: 'update' },
-  2: { label: 'Delete', cls: 'delete' },
-};
-
-function ActionBadge({ action, verb }: { action?: number; verb?: string }) {
-  const meta = action !== undefined ? ACTION_LABELS[action] : undefined;
-  const label = meta?.label ?? verb ?? '—';
-  const cls = meta?.cls ?? 'update';
-  return <span className={`${styles.actionBadge} ${styles[cls]}`}>{label}</span>;
+// The API sends `action` as a verb string ("created", "activated", …), not a
+// numeric code. Map the destructive/creative ones to colours; anything else is
+// treated as an update.
+function actionClass(action: string) {
+  if (/creat/i.test(action)) return 'create';
+  if (/delet|deactivat|fail/i.test(action)) return 'delete';
+  return 'update';
 }
 
-function ChangesCell({ changes }: { changes: AuditLog['changes'] }) {
+function ActionBadge({ action }: { action?: string }) {
+  const label = action ? action.replace(/_/g, ' ') : '—';
+  return (
+    <span className={`${styles.actionBadge} ${styles[actionClass(action ?? '')]}`}>
+      {label}
+    </span>
+  );
+}
+
+function ChangesCell({ changes }: { changes: AuditLog['diff'] }) {
   if (!changes) return <span className={styles.muted}>—</span>;
 
   if (typeof changes === 'string') {
@@ -127,25 +132,25 @@ export default function AuditLogScreen() {
 
             {!isLoading && !error && logs.map(log => (
               <tr key={log.id} className={styles.row}>
-                <td className={styles.timeCell}>{fmtTime(log.timestamp)}</td>
+                <td className={styles.timeCell}>{fmtTime(log.created_at)}</td>
                 <td className={styles.actorCell}>
-                  {log.actor ?? <span className={styles.muted}>System</span>}
+                  {log.admin_user ?? <span className={styles.muted}>System</span>}
                 </td>
                 <td>
-                  <ActionBadge action={log.action} verb={log.verb} />
+                  <ActionBadge action={log.action} />
                 </td>
                 <td className={styles.objectCell}>
-                  {log.content_type && (
-                    <span className={styles.contentType}>{log.content_type}</span>
+                  {log.entity_type && (
+                    <span className={styles.contentType}>{log.entity_type}</span>
                   )}
-                  {log.object_repr && (
-                    <span className={styles.objectRepr}>{log.object_repr}</span>
+                  {log.entity_id && (
+                    <span className={styles.objectRepr}>#{log.entity_id}</span>
                   )}
-                  {!log.content_type && !log.object_repr && (
+                  {!log.entity_type && !log.entity_id && (
                     <span className={styles.muted}>—</span>
                   )}
                 </td>
-                <td><ChangesCell changes={log.changes} /></td>
+                <td><ChangesCell changes={log.diff} /></td>
               </tr>
             ))}
           </tbody>

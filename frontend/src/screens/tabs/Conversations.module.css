@@ -248,3 +248,9 @@
   .sessionRow { grid-template-columns: 90px 1fr 100px 32px; }
   .sessionRow .timestamp { display: none; }
 }
+
+/* Outbound message the provider rejected — logged, but never reached the customer. */
+.notDelivered {
+  color: var(--danger);
+  font-weight: 600;
+}

@@ -210,7 +210,10 @@ export function ClientsListScreen() {
                     <span className={styles.businessName}>{tenant.name}</span>
                   </div>
                 </td>
-                <td className={styles.mono}>{tenant.wa_phone_number || <span className={styles.muted}>—</span>}</td>
+                <td className={styles.mono}>{tenant.wa_phone_number
+                  || (tenant.wa_phone_number_id
+                      ? <span className={styles.muted}>connected</span>
+                      : <span className={styles.muted}>—</span>)}</td>
                 <td>{tenant.ig_account_id || <span className={styles.muted}>—</span>}</td>
                 <td>
                   {tenant.handoff_enabled && tenant.handoff_email
